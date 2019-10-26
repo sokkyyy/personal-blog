@@ -2,7 +2,7 @@ from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 from . import login_manager
-
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -17,6 +17,8 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255), unique=True)
     pass_secure = db.Column(db.String(255))
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+    comments = db.relationship('Comment',backref='comment_user',lazy='dynamic')
+
 
     def save_user(self):
         db.session.add(self)
@@ -47,3 +49,24 @@ class Role(db.Model):
 
     def __repr__(self):
         f'Role {self.name}'
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    content = db.Column(db.String())
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    comments = db.relationship('Comment',backref='post',lazy='dynamic')
+
+    def __repr__(self):
+        return f'Post {self.title}'
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String())
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
