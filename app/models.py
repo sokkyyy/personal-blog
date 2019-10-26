@@ -1,8 +1,12 @@
 from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
+from . import login_manager
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class User(UserMixin,db.Model):
@@ -13,6 +17,10 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255), unique=True)
     pass_secure = db.Column(db.String(255))
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
 
     @property
     def password(self):
@@ -38,4 +46,4 @@ class Role(db.Model):
     users = db.relationship('User',backref='role',lazy='dynamic')
 
     def __repr__(self):
-        f'Role {self.role}'
+        f'Role {self.name}'
