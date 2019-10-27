@@ -7,6 +7,10 @@
     <div class="jumbotron">
         <h1>{{post.title}}</h1>
         <p>{{post.content}}</p>
+        {% if current_user.role.name == 'admin'%}
+            <a href="{{url_for('main.delete',post_id=post.id, action='post')}}">Delete Post</a>
+            <a href="{{url_for('main.update_post',post_id=post.id)}}">Update</a>
+        {% endif %}
         
     </div>
     <div class="container">
@@ -18,6 +22,9 @@
         {%for comment in comments%}
         <ul>
             <li>{{comment.comment}}</li>
+            {% if current_user.role.name == 'admin'%}
+            <a href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}">Delete Comment</a>
+            {% endif %}
         </ul>
         {%endfor%}
         {%endif%}
