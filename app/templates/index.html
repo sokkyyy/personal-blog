@@ -10,5 +10,8 @@
     <div class="container">
         <p>{{quotes.quote}}</p>
     </div>
+    <div class="container">
+        <a href="{{url_for('main.subscribe',user_id=current_user.id)}}">Subscribe</a>
+    </div>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for
 from . import main
 from flask_login import login_required,current_user
-from ..models import Post,Comment
+from ..models import Post,Comment,Subscriber
 from .forms import PostForm,CommentForm
 from ..requests import get_quotes
 
@@ -84,3 +84,15 @@ def update_post(post_id):
     title = "Update Post"
     return render_template('update_post.html',title=title,update_form=form)
 
+@main.route('/subscribe')
+@login_required
+def subscribe():
+    email = current_user.email
+    subscribed = Subscriber.query.filter_by(email=email).first()
+
+    if not subscribed:
+        subscriber = Subscriber(email=email)
+        subscriber.save_subscriber()
+        
+        return redirect(url_for('main.index'))
+    
