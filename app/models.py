@@ -17,7 +17,8 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255), unique=True)
     pass_secure = db.Column(db.String(255))
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
-    comments = db.relationship('Comment',backref='comment_user',lazy='dynamic')
+    posts = db.relationship('Post',backref='user',lazy='dynamic')
+    comments = db.relationship('Comment',backref='user',lazy='dynamic')
 
 
     def save_user(self):
@@ -58,6 +59,11 @@ class Post(db.Model):
     content = db.Column(db.String())
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     comments = db.relationship('Comment',backref='post',lazy='dynamic')
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_post(self):
+        db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return f'Post {self.title}'
@@ -70,3 +76,10 @@ class Comment(db.Model):
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Comment {self.comment}'

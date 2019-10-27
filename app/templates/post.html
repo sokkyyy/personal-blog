@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+{%block content%}
+<div class="row">
+    <div class="jumbotron">
+        <h1>{{post.title}}</h1>
+        <p>{{post.content}}</p>
+        
+    </div>
+    <div class="container">
+        {{wtf.quick_form(form)}}
+
+    </div>
+    <div class="container">
+        {%if comments%}
+        {%for comment in comments%}
+        <ul>
+            <li>{{comment.comment}}</li>
+        </ul>
+        {%endfor%}
+        {%endif%}
+    </div>
+
+</div>
+{%endblock%}

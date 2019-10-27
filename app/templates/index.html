@@ -1,5 +1,14 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<h1>Hello, World</h1>
+<div class="row">
+    {%if posts%}
+    {%for post in posts %}
+    <a href="{{url_for('main.post',post_id=post.id)}}">{{post.title}}</a>
+    {%endfor%}
+    {%endif%}
+    <div class="container">
+        <p>{{quotes.quote}}</p>
+    </div>
+</div>
 {% endblock %}
