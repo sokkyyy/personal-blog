@@ -1,0 +1,4 @@
+Ray has added another post.
+Visit the blog to read it.
+The title is "{{post.title}}".
+Have a nice read.

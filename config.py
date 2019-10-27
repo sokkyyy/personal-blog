@@ -5,6 +5,13 @@ class Config:
     SECRET_KEY = 'personalblog'
     API_URL = "http://quotes.stormconsultancy.co.uk/random.json"
 
+    #  email configurations
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+
 class ProdConfig(Config):
     pass
 

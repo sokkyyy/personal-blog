@@ -4,6 +4,7 @@ from flask_login import login_required,current_user
 from ..models import Post,Comment,Subscriber
 from .forms import PostForm,CommentForm
 from ..requests import get_quotes
+from ..email import mail_message
 
 
 @main.route('/')
@@ -11,6 +12,7 @@ def index():
 
     posts = Post.query.all()
     quotes = get_quotes()
+
 
     title = "Home - Ray's Blog"
     return render_template('index.html',title=title,posts=posts,quotes=quotes)
@@ -25,8 +27,15 @@ def new_post():
         title = form.title.data
         content = form.content.data
 
+        subscribers = Subscriber.query.all()
+
         new_post = Post(title=title,content=content,user=current_user)
         new_post.save_post()
+
+        for subscriber in subscribers:
+            mail_message("New Post from Ray's Blog",'email/new_post',subscriber.email,post=new_post)
+
+
 
         return redirect(url_for('.index'))
     
