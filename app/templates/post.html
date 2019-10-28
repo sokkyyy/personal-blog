@@ -1,34 +1,69 @@
 {%extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
-
+ 
+<!--Styles Block-->
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/post.css')}}">
+{% endblock %}
 
 {%block content%}
+<section class="post-banner" style="background-image:url('/static/quotes.jpeg');">
+    <div class="container postTitle" >
+        <h1 class="">{{post.title}}</h1>
+        <small>{{post.posted.strftime('%B %d, %Y')}}</small>
+    </div>
+    <div class="container">
+    {% if user == 'admin'%}
+        <a href="{{url_for('main.delete',post_id=post.id, action='post')}}">Delete Post</a>
+        <a href="{{url_for('main.update_post',post_id=post.id)}}">Update</a>
+    {% endif %}
+    </div>
+</section>
 <div class="row">
-    <div class="jumbotron">
-        <h1>{{post.title}}</h1>
-        <p>{{post.content}}</p>
-        {% if current_user.role.name == 'admin'%}
-            <a href="{{url_for('main.delete',post_id=post.id, action='post')}}">Delete Post</a>
-            <a href="{{url_for('main.update_post',post_id=post.id)}}">Update</a>
-        {% endif %}
-        
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="jumbotron blog">{{post.content|safe}}</div>
     </div>
-    <div class="container">
-        {{wtf.quick_form(form)}}
-
-    </div>
-    <div class="container">
-        {%if comments%}
-        {%for comment in comments%}
-        <ul>
-            <li>{{comment.comment}}</li>
-            {% if current_user.role.name == 'admin'%}
-            <a href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}">Delete Comment</a>
-            {% endif %}
-        </ul>
-        {%endfor%}
-        {%endif%}
-    </div>
-
+    <div class="col-sm-2"></div>
 </div>
+
+<div class="row ">
+    <div class="col-sm-2"></div>
+    
+    <div class="col-sm-8 jumbotron">
+
+        <div class="container">
+            <h4>COMMENTS</h4>
+                {%if comments%}
+                {%for comment in comments%}
+                <div class="card" >
+                    <p>
+                    <span style="display: inline-block;"><a href="#">@{{comment.user.username}}</a>:</span>
+                    <span style="display: inline-block;">{{comment.comment}}</span>
+                    </p>
+                    {%if current_user.is_authenticated%}
+                    {% if current_user.role.name == 'admin'%}
+                    <a href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}">Delete Comment</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+                {%endfor%}
+                {%else%}
+                <p>No comments</p>
+                {%endif%}
+        </div>
+
+        <div class="container">
+        {% if current_user.is_authenticated %}
+            {{wtf.quick_form(form)}}
+        {% else %}
+        <p><a href="{{url_for('auth.login')}}">Login </a>to leave a Comment</p>
+        {% endif %}
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
 {%endblock%}
+

@@ -5,17 +5,27 @@ from ..models import Post,Comment,Subscriber
 from .forms import PostForm,CommentForm
 from ..requests import get_quotes
 from ..email import mail_message
+from sqlalchemy import desc
+import markdown2
 
 
 @main.route('/')
 def index():
 
-    posts = Post.query.all()
+    posts = Post.query.order_by(desc('posted')).all()
+    recent = posts[0:2]
+    other_posts = posts[2:]
+   
+
+    
+
+
+
     quotes = get_quotes()
 
 
     title = "Home - Ray's Blog"
-    return render_template('index.html',title=title,posts=posts,quotes=quotes)
+    return render_template('index.html',title=title,posts=other_posts,quotes=quotes,recent=recent)
 
 @main.route('/new-post',methods=['GET','POST'])
 @login_required
@@ -59,7 +69,12 @@ def post(post_id):
     
 
     title = f"{post.title}"
-    return render_template('post.html',title=title,post=post,form=form,comments=comments)
+    user = None
+    if current_user.is_authenticated:
+        user = current_user.role.name
+    else:
+        user = "anonymous"
+    return render_template('post.html',title=title,post=post,form=form,comments=comments,user=user)
 
 @main.route('/delete/<post_id>/<action>')
 @login_required

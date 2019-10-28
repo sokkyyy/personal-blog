@@ -1,12 +1,23 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+<!--Styles Block-->
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/new-post.css')}}">
+{% endblock %}
+
+
 {% block content %}
+<div class="row background" style="background-image:url('/static/quotes.jpeg');">
 {%if current_user.role.name == 'admin'%}
-<div class="row">
+
+<div class="container">
     <div class="jumbotron">
         {{wtf.quick_form(post_form)}}
+        {{simplemde.load}}
     </div>
 </div>
 {%endif%}
 {% endblock%}
+</div>
