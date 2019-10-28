@@ -106,7 +106,7 @@ def update_post(post_id):
         return redirect(url_for('main.post',post_id=post.id))
     
     title = "Update Post"
-    return render_template('update_post.html',title=title,update_form=form)
+    return render_template('new-post.html',title=title,post_form=form)
 
 @main.route('/subscribe')
 @login_required

@@ -6,11 +6,12 @@ from flask_login import LoginManager
 from flask_admin import Admin
 from flask_mail import Mail
 from flask_simplemde import SimpleMDE
+from flask_fontawesome import FontAwesome
 
 admin = Admin()
 mail = Mail()
 simple = SimpleMDE()
-
+fa = FontAwesome()
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -34,6 +35,7 @@ def create_app(config_name):
     admin.init_app(app)
     mail.init_app(app)
     simple.init_app(app)
+    fa.init_app(app)
 
     #Registering main blueprint
     from .main import main as main_blueprint

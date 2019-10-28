@@ -8,15 +8,16 @@
 {% endblock %}
 
 {%block content%}
+{{ fontawesome_html() }}
 <section class="post-banner" style="background-image:url('/static/quotes.jpeg');">
     <div class="container postTitle" >
         <h1 class="">{{post.title}}</h1>
         <small>{{post.posted.strftime('%B %d, %Y')}}</small>
     </div>
-    <div class="container">
+    <div class="container adminLinks">
     {% if user == 'admin'%}
-        <a href="{{url_for('main.delete',post_id=post.id, action='post')}}">Delete Post</a>
-        <a href="{{url_for('main.update_post',post_id=post.id)}}">Update</a>
+        <a class="btn btn-danger" href="{{url_for('main.delete',post_id=post.id, action='post')}}"><i class="fas fa-trash-alt"></i>Delete Post</a>
+        <a class="btn btn-warning" href="{{url_for('main.update_post',post_id=post.id)}}"><i class="fas fa-edit"></i>Update</a>
     {% endif %}
     </div>
 </section>
@@ -35,25 +36,26 @@
 
         <div class="container">
             <h4>COMMENTS</h4>
+            <hr>
                 {%if comments%}
                 {%for comment in comments%}
-                <div class="card" >
+                <div class="card">
                     <p>
                     <span style="display: inline-block;"><a href="#">@{{comment.user.username}}</a>:</span>
                     <span style="display: inline-block;">{{comment.comment}}</span>
                     </p>
                     {%if current_user.is_authenticated%}
                     {% if current_user.role.name == 'admin'%}
-                    <a href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}">Delete Comment</a>
+                    <a class="btn btn-danger" style="width: 50px;float: right;" href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}"><i class="fas fa-trash-alt"></i></a>
                     {% endif %}
                     {% endif %}
                 </div>
                 {%endfor%}
                 {%else%}
-                <p>No comments</p>
+                <h4 class="text-muted" style="text-align: center;">No comments</h4>
                 {%endif%}
         </div>
-
+        <hr>
         <div class="container">
         {% if current_user.is_authenticated %}
             {{wtf.quick_form(form)}}
