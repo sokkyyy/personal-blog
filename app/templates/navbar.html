@@ -19,7 +19,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
-        <li class="nav-item" style="color:white;padding:15px;">{{current_user.username|capitalize}}</li>
+        <li class="nav-item" style="color:white;padding:15px;"></li>
         <li class="nav-item"><a class="nav-link signOut" style="padding:15px;color:white" href="{{url_for('auth.logout')}}">Sign out</a></li>
         {% else %}
         <li class="nav-item"><a class="nav-link signOut" style="color:white;padding:15px;" href="{{url_for('auth.login')}}">Sign in</a></li>

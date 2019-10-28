@@ -50,7 +50,7 @@
         <div class="card">
             <h3 style="text-align: center;"><a class="postTitle" href="{{url_for('main.post',post_id=post.id)}}">{{post.title}}</a></h3>
             <h6 style="text-align: right;"><small>{{post.posted.strftime('%B %d, %Y')}}</small></h6>
-            <p class="content" >{{post.content|safe}}</p>
+            <p class="content" >{{post.content|safe|truncate(100)}}</p>
         </div>
         {%endfor%}
         {%endif%}
