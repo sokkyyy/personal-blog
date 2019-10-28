@@ -2,7 +2,7 @@ import os
 
 class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/rayblog'
-    SECRET_KEY = 'personalblog'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     API_URL = "http://quotes.stormconsultancy.co.uk/random.json"
 
     #  email configurations
@@ -17,7 +17,7 @@ class Config:
     SIMPLEMDE_USE_CDN = True
 
 class ProdConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class DevConfig(Config):
     DEBUG = True
