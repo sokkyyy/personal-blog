@@ -11,7 +11,7 @@ from flask_login import login_user,logout_user,login_required
 
 @auth.route('/login',methods=['GET','POST'])
 def login():
-
+ 
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
