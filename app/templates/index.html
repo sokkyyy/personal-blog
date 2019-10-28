@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Acme|Open+Sans|Pacifico&display=swap" rel="stylesheet">
-    {% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Acme|Old+Standard+TT|Open+Sans|Pacifico&display=swap" rel="stylesheet">
+{% endblock %}
 
 
 {% block content %}
@@ -26,16 +27,14 @@
             <div class="card">
                 <h3 style="text-align: center;"><a class="postTitle" href="{{url_for('main.post',post_id=post.id)}}">{{post.title}}</a></h3>
                 <h6 style="text-align: right;"><small>{{post.posted.strftime('%B %d, %Y')}}</small></h6>
-                <p>{{post.content|safe|truncate(100)}}</p>
+                <p class="content">{{post.content|safe|truncate(100)}}</p>
             </div>    
         </div>
       
         {%endfor%}
         <div class="col-sm-4 subscribe">
-                <div class="card">
-                    <div class="container" style="text-align: center;">
-                        <a class="btn btn-warning" href="{{url_for('main.subscribe',user_id=current_user.id)}}">Subscribe</a>
-                    </div>
+                <div class="container" style="text-align: center;">
+                    <a class="btn btn-warning" href="{{url_for('main.subscribe',user_id=current_user.id)}}">Subscribe</a>
                 </div>
         </div>
     </div>
@@ -51,7 +50,7 @@
         <div class="card">
             <h3 style="text-align: center;"><a class="postTitle" href="{{url_for('main.post',post_id=post.id)}}">{{post.title}}</a></h3>
             <h6 style="text-align: right;"><small>{{post.posted.strftime('%B %d, %Y')}}</small></h6>
-            <p>{{post.content|safe}}</p>
+            <p class="content" >{{post.content|safe}}</p>
         </div>
         {%endfor%}
         {%endif%}

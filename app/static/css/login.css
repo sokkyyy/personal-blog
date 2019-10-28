@@ -1,0 +1,15 @@
+body {
+    height: 100%;
+}
+.login {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 550px;
+}
+.loginForm {
+    background-color: #dfdfdf;
+    margin-top: 50px;
+    border-radius: 10px;
+    padding: 10px;
+}

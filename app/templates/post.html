@@ -6,13 +6,14 @@
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='css/post.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Old+Standard+TT|Open+Sans|Pacifico&display=swap" rel="stylesheet"> 
 {% endblock %}
 
 {%block content%}
 {{ fontawesome_html() }}
 <section class="post-banner" style="background-image:url('/static/quotes.jpeg');">
     <div class="container postTitle" >
-        <h1 class="">{{post.title}}</h1>
+        <h1 class="postTitle">{{post.title}}</h1>
         <small>{{post.posted.strftime('%B %d, %Y')}}</small>
     </div>
     <div class="container adminLinks">
@@ -36,7 +37,7 @@
     <div class="col-sm-8 jumbotron">
 
         <div class="container">
-            <h4>COMMENTS</h4>
+            <h4 class="comments">COMMENTS</h4>
             <hr>
                 {%if comments%}
                 {%for comment in comments%}

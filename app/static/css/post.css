@@ -1,5 +1,6 @@
 body {
     background-color: #dfdfdf;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .post-banner {
@@ -11,11 +12,27 @@ body {
 .postTitle {
     color: white;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+
 }
 .blog {
     background-color: white;
+    margin-top: 10px ;
+    font-family: 'Open Sans', sans-serif;
+
+    font-family: 'Pacifico', cursive;
+
+    font-family: 'Acme', sans-serif;
+
+    font-family: 'Old Standard TT', serif;
 }
 .adminLinks {
     text-align: center;
+}
+.postTitle {
+    font-family: 'Open Sans', sans-serif;
+}
+.comments {
+    font-family: 'Open Sans', sans-serif;
 }
