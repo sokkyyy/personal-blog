@@ -5,6 +5,7 @@
 {% block styles %}
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='css/post.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {%block content%}
@@ -46,7 +47,7 @@
                     </p>
                     {%if current_user.is_authenticated%}
                     {% if current_user.role.name == 'admin'%}
-                    <a class="btn btn-danger" style="width: 50px;float: right;" href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-danger" style="width: 50px;float: right   ;" href="{{url_for('main.delete',post_id=comment.post_id, action='comment')}}"><i class="fas fa-trash-alt"></i></a>
                     {% endif %}
                     {% endif %}
                 </div>

@@ -15,6 +15,7 @@ body {
     float: left;
     width: 62%;
     margin-left:50px;
+    margin-top: 30px;
 }
 .card {
     background-color: white;
@@ -24,4 +25,33 @@ body {
 }
 .recent {
     margin-left:50px;
+
+
+    font-family: 'Open Sans', sans-serif;
+
+    font-family: 'Pacifico', cursive;
+
+    font-family: 'Acme', sans-serif;
+
+
+
+
+}
+.postTitle {
+    
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    
+
+}
+.postTitle:hover{
+    color: teal;
+    font-weight: bold;
+}
+.others {
+    font-family: 'Open Sans', sans-serif;
+
+    font-family: 'Pacifico', cursive;
+
+    font-family: 'Acme', sans-serif;
 }
