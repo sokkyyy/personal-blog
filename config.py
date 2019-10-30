@@ -1,7 +1,6 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/rayblog'
     SECRET_KEY = os.environ.get('SECRET_KEY')
     API_URL = "http://quotes.stormconsultancy.co.uk/random.json"
 
@@ -18,13 +17,19 @@ class Config:
 
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/rayblog'
+
 
 class DevConfig(Config):
     DEBUG = True
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/rayblog_test'
 
 
 
 config_options = {
     'development':DevConfig,
     'production':ProdConfig,
+    'test':TestConfig
 }

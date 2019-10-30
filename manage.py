@@ -4,12 +4,19 @@ from app.models import User,Role,Comment,Subscriber
 from flask_migrate import Migrate,MigrateCommand
 
 #Creating App Instance
-app = create_app('production')
+app = create_app('test')
 
 manager = Manager(app)
 migrate = Migrate(app,db)
 manager.add_command('db',MigrateCommand)
 manager.add_command('server',Server)
+
+@manager.command
+def test():
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
 
 
 @manager.shell
